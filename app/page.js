@@ -1,24 +1,21 @@
-import Image from "next/image";
-import React from "react";
-import Link from "next/link";
+// app/page.js
+import Link from 'next/link';
 
-import {Dropdown,
-        DropdownTrigger,
-        DropdownMenu,
-        DropdownSection,
-        DropdownItem
-      } from "@nextui-org/dropdown";
-
-export default function Home() {
+const HomePage = () => {
   return (
-    <main>
-        <p>XX XB of storage in XXXX was $XX.XX</p>   
+    <div>
+      <h1>Welcome to My Next.js App</h1>
+      <nav>
         <ul>
           <li>
-        <Link href="/index">Index</Link>
+            <Link href="/calculator">
+              Go to Calculator
+            </Link>
           </li>
         </ul>
-    </main>
-    
+      </nav>
+    </div>
   );
-}
+};
+
+export default HomePage;
