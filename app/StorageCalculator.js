@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { loadCSV } from '../utils/loadCSV'; // Adjust the import path
+import './styles.css'; // Import the CSS file
 
 const StorageCalculator = () => {
   const [data, setData] = useState([]);
   const [amount, setAmount] = useState('');
-  const [unit, setUnit] = useState('terabytes');
+  const [unit, setUnit] = useState('TB');
   const [year, setYear] = useState('');
   const [result, setResult] = useState(null);
   const [storageType, setStorageType] = useState('Memory');
@@ -30,18 +31,21 @@ const StorageCalculator = () => {
         }
         const amountInTerabytes = convertToTerabytes(parseFloat(amount), unit);
         const totalCost = costPerTerabyte * amountInTerabytes;
-        setResult(totalCost);
+        const resultMessage = `The estimated cost of ${amount} ${unit} of ${storageType} storage in ${year} was $${totalCost.toFixed(2)}.`;
+        setResult(resultMessage);
       } else {
         setResult("Year not found in data.");
       }
+    } else {
+      setResult("Please enter all fields.");
     }
   };
 
   const convertToTerabytes = (amount, unit) => {
     switch (unit) {
-      case 'gigabytes':
+      case 'GB':
         return amount / 1024;
-      case 'megabytes':
+      case 'MB':
         return amount / (1024 * 1024);
       default:
         return amount;
@@ -49,7 +53,7 @@ const StorageCalculator = () => {
   };
 
   return (
-    <div>
+    <div className="center-container">
       <h1>Storage Cost Calculator</h1>
       <div>
         <label>Amount:</label>
@@ -63,9 +67,9 @@ const StorageCalculator = () => {
       <div>
         <label>Unit:</label>
         <select value={unit} onChange={(e) => setUnit(e.target.value)}>
-          <option value="terabytes">Terabytes</option>
-          <option value="gigabytes">Gigabytes</option>
-          <option value="megabytes">Megabytes</option>
+          <option value="TB">TB</option>
+          <option value="GB">GB</option>
+          <option value="MB">MB</option>
         </select>
       </div>
       <div>
@@ -87,7 +91,7 @@ const StorageCalculator = () => {
         </select>
       </div>
       <button type="button" onClick={handleCalculate}>Calculate</button>
-      {result !== null && <div>The calculated cost is: {isNaN(result) ? result : `$${result.toFixed(2)}`}</div>}
+      {result !== null && <div>{result}</div>}
     </div>
   );
 };
