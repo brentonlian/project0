@@ -1,0 +1,27 @@
+{
+    "1950s": {
+      "description": "In the 1950s, magnetic drums and early forms of hard disks were used for storage in computers.",
+      "photo": "/images/1950s.jpg"
+    },
+    "1960s": {
+      "description": "In the 1960s, storage was primarily tape-based, used in mainframe computers.",
+      "photo": "/images/1960s.jpg"
+    },
+    "1970s": {
+      "description": "In the 1970s, floppy disks and magnetic tape were common storage mediums.",
+      "photo": "/images/1970s.jpg"
+    },
+    "1980s": {
+      "description": "In the 1980s, hard drives became more prevalent in personal computers.",
+      "photo": "/images/1980s.jpg"
+    },
+    "1990s": {
+      "description": "In the 1990s, optical disks like CDs and DVDs were widely used.",
+      "photo": "/images/1990s.jpg"
+    },
+    "2000s": {
+      "description": "In the 2000s, flash memory and solid-state drives (SSD) started becoming popular.",
+      "photo": "/images/2000s.jpg"
+    }
+  }
+  

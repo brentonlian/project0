@@ -1,0 +1,35 @@
+{
+    "1950s": {
+      "description": "The IBM Model 350 Disk File, first released in 1956 was the world’s first hard disk drive. It consisted of fifty 24” disks with a maximum storage capacity of 3.75 MB, and was leased at an average cost of $3,200 a month, equivalent to more than $25,000 per month in the modern day. ",
+      "photo": "/images/1950s.jpg"
+    },
+    "1960s": {
+      "description": "The usage of floppy disks peaked in the mid-90s, but the first floppy disk, the IBM “Minnow”, was first prototyped in 1967. Each 8-inch floppy disk had a capacity of only 80kB, equivalent to 3,000 punched cards. Importantly, floppys allowed for data to easily be loaded onto computers and became the most widely used storage medium for small systems. ",
+      "photo": "/images/1960s.jpg"
+    },
+    "1970s": {
+      "description": "In 1970, the Intel 1103 was launched. Its semiconductor based memory superseded older magnetic-core memory. It cost $21 ($170 in 2024) for 1024 bits of memory. By 1972, it accounted for nearly all of Intel’s revenue. ",
+      "photo": "/images/1970s.jpg"
+    },
+    "1980s": {
+      "description": "The CD-ROM was initially developed by Sony and Philips in 1982 for distributing music. It was capable of storing 550 MB of data.",
+      "photo": "/images/1980s.jpg"
+    },
+    "1990s": {
+      "description": "In 1991 SanDisk released a prototype SSD module that combined a flash storage array and an intelligent controller to demonstrate what a practical commercial SSD for the mass market might look like. The 20 MB SSD sold for $1,000 (Roughly $2,400 today). ",
+      "photo": "/images/1990s.jpg"
+    },
+    "2000s": {
+      "description": "The origin of the USB is variously debated. One originator of the USB was the Trek 2000 company based out of Singapore, which released a solid-state memory chip encased in plastic, attached to a USB holding 8 MB of data initially called the “thumb drive”. ",
+      "photo": "/images/2000s.jpg"
+    },
+    "2010s": {
+        "description": "Although not the first cloud storage solution to be developed, Google helped to mainstream cloud storage through the free addition of 15 GB of cloud storage to every single Google account, to this day. ",
+        "photo": "/images/2010s.jpg"
+    },
+    "2020s": {
+        "description": "The largest HDD currently available to consumers as of January 2024 is the WD Gold Enterprise class at 24TB for $650, and the largest SSD is Teamgroup’s 15.36 TB QX SSD at $1699. ",
+        "photo": "/images/2020s.jpg"
+    }
+  }
+  

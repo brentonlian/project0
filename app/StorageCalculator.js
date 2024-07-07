@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { loadCSV } from '../utils/loadCSV'; // Adjust the import path
-import './styles.css'; // Import the CSS file
 
 const StorageCalculator = () => {
   const [data, setData] = useState([]);
@@ -11,6 +10,8 @@ const StorageCalculator = () => {
   const [year, setYear] = useState('');
   const [result, setResult] = useState(null);
   const [storageType, setStorageType] = useState('Memory');
+  const [decadeInfo, setDecadeInfo] = useState(null);
+  const [decade, setDecade] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +21,7 @@ const StorageCalculator = () => {
     fetchData();
   }, []);
 
-  const handleCalculate = () => {
+  const handleCalculate = async () => {
     if (amount && unit && year && storageType) {
       const yearData = data.find((row) => row.Year === year);
       if (yearData) {
@@ -33,6 +34,15 @@ const StorageCalculator = () => {
         const totalCost = costPerTerabyte * amountInTerabytes;
         const resultMessage = `The estimated cost of ${amount} ${unit} of ${storageType} storage in ${year} was $${totalCost.toFixed(2)}.`;
         setResult(resultMessage);
+        
+        const calculatedDecade = getDecade(year);
+        setDecade(calculatedDecade);
+        const decadeData = await fetchDecadeInfo(calculatedDecade);
+        if (decadeData) {
+          setDecadeInfo(decadeData);
+        } else {
+          setDecadeInfo(null);
+        }
       } else {
         setResult("Year not found in data.");
       }
@@ -52,8 +62,19 @@ const StorageCalculator = () => {
     }
   };
 
+  const getDecade = (year) => {
+    const decade = Math.floor(year / 10) * 10;
+    return `${decade}s`;
+  };
+
+  const fetchDecadeInfo = async (decade) => {
+    const response = await fetch('/decadesInfo.json');
+    const data = await response.json();
+    return data[decade];
+  };
+
   return (
-    <div className="center-container">
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column' }}>
       <h1>Storage Cost Calculator</h1>
       <div>
         <label>Amount:</label>
@@ -92,6 +113,13 @@ const StorageCalculator = () => {
       </div>
       <button type="button" onClick={handleCalculate}>Calculate</button>
       {result !== null && <div>{result}</div>}
+      {decadeInfo && (
+        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+          <h2>{decade}</h2>
+          <p>{decadeInfo.description}</p>
+          <img src={decadeInfo.photo} alt={`${decade} storage`} style={{ width: '300px', height: 'auto' }} />
+        </div>
+      )}
     </div>
   );
 };
