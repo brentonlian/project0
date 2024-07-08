@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import StorageCalculator from './StorageCalculator';
+import StorageCalculator from './components/StorageCalculator';
 
 const HomePage = () => {
   return (

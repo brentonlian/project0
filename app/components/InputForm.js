@@ -15,7 +15,7 @@ const InputForm = ({ onCalculate }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
       <div>
         <label>Amount:</label>
         <input
@@ -28,9 +28,9 @@ const InputForm = ({ onCalculate }) => {
       <div>
         <label>Unit:</label>
         <select value={unit} onChange={(e) => setUnit(e.target.value)}>
-          <option value="terabytes">Terabytes</option>
-          <option value="gigabytes">Gigabytes</option>
-          <option value="megabytes">Megabytes</option>
+          <option value="terabytes">TB</option>
+          <option value="gigabytes">GB</option>
+          <option value="megabytes">MB</option>
         </select>
       </div>
       <div>
