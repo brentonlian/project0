@@ -1,18 +1,23 @@
 'use client';
 
-import React from 'react';
-import Header from './components/Header';
+import React, { useState } from 'react';
+import InputForm from '../components/InputForm';
 import StorageCalculator from './StorageCalculator';
 
+const Home = () => {
+  const [formData, setFormData] = useState(null);
 
-const HomePage = () => {
+  const handleCalculate = (data) => {
+    setFormData(data);
+  };
+
   return (
     <div>
-      <Header />
       <h1>Home Page</h1>
-      <StorageCalculator />
+      <InputForm onCalculate={handleCalculate} />
+      {formData && <StorageCalculator formData={formData} />}
     </div>
   );
 };
 
-export default HomePage;
+export default Home;
