@@ -6,11 +6,12 @@ const InputForm = ({ onCalculate }) => {
   const [amount, setAmount] = useState('');
   const [unit, setUnit] = useState('terabytes');
   const [year, setYear] = useState('');
+  const [storageType, setStorageType] = useState('Memory');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (amount && year) {
-      onCalculate({ amount: parseFloat(amount), unit, year: parseInt(year) });
+      onCalculate({ amount: parseFloat(amount), unit, year: parseInt(year), storageType });
     }
   };
 
@@ -41,6 +42,15 @@ const InputForm = ({ onCalculate }) => {
           onChange={(e) => setYear(e.target.value)}
           required
         />
+      </div>
+      <div>
+        <label>Storage Type:</label>
+        <select value={storageType} onChange={(e) => setStorageType(e.target.value)}>
+          <option value="Memory">Memory</option>
+          <option value="Flash">Flash</option>
+          <option value="HDD">HDD</option>
+          <option value="SSD">SSD</option>
+        </select>
       </div>
       <button type="submit">Calculate</button>
     </form>
