@@ -1,14 +1,15 @@
-// app/budget-calculator/page.js
+// app/page.js
+'use client';
+
 import React from 'react';
-import BudgetCalculator from './BudgetCalculator';
+import Home from './Home';
 
-
-const BudgetCalculatorPage = () => {
+const Page = () => {
   return (
     <div>
-      <BudgetCalculator />
+      <Home />
     </div>
   );
 };
 
-export default BudgetCalculatorPage;
+export default Page;

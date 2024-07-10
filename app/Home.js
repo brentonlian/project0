@@ -1,22 +1,18 @@
-import React, { useState } from 'react';
-import Header from './components/Header';
+// Home.js
+import React from 'react';
 import InputForm from './components/InputForm';
-import StorageCalculator from './components/StorageCalculator';
+import styles from '../styles/Home.module.css';
 
 const Home = () => {
-  const [calculation, setCalculation] = useState(null);
-
   const handleCalculate = (data) => {
-    setCalculation(data);
+    console.log('Calculation data:', data);
+    // Handle the calculation logic here
   };
 
   return (
     <div>
-      <Header />
-      <div style={{ textAlign: 'center' }}>
-        <InputForm onCalculate={handleCalculate} />
-        <StorageCalculator calculation={calculation} />
-      </div>
+
+      <InputForm onCalculate={handleCalculate} />
     </div>
   );
 };
