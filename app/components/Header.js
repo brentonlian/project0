@@ -1,12 +1,18 @@
+// app/components/Header.js
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 
 const Header = () => {
   return (
-    <header style={{ display: 'flex', justifyContent: 'center', padding: '10px', background: '#f0f0f0' }}>
+    <header>
       <nav>
-        <Link href="/" style={{ margin: '0 10px' }}>Home</Link>
-        <Link href="/sources" style={{ margin: '0 10px' }}>Sources</Link>
+        <ul>
+          <li><Link href="/">Home</Link></li>
+          <li><Link href="/sources">Sources</Link></li>
+          <li><Link href="/budget-calculator">Budget Calculator</Link></li>
+        </ul>
       </nav>
     </header>
   );
