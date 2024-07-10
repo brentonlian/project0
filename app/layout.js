@@ -1,21 +1,19 @@
-'use client';
-
-import React from 'react';
+// app/layout.js
+import '../styles/globals.css';
 import Header from './components/Header';
-import '../styles/globals.css'; // Adjust the path if you have global styles
 
-const RootLayout = ({ children }) => {
+export const metadata = {
+  title: 'Storage Cost Calculator',
+  description: 'Calculate storage costs across different years',
+};
+
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <title>Storage Cost Calculator</title>
-      </head>
       <body>
         <Header />
-        <main>{children}</main>
+        {children}
       </body>
     </html>
   );
-};
-
-export default RootLayout;
+}

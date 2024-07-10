@@ -1,14 +1,14 @@
-'use client';
-
+// app/budget-calculator/page.js
 import React from 'react';
-import StorageCalculator from './StorageCalculator';
+import BudgetCalculator from './BudgetCalculator';
 
-const HomePage = () => {
+
+const BudgetCalculatorPage = () => {
   return (
     <div>
-      <StorageCalculator />
+      <BudgetCalculator />
     </div>
   );
 };
 
-export default HomePage;
+export default BudgetCalculatorPage;
