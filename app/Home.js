@@ -1,25 +1,20 @@
-// app/Home.js
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import InputForm from './components/InputForm';
-import useStorageCalculator from './hooks/useStorageCalculator';
-import styles from '../styles/Home.module.css';
 
 const Home = () => {
-  const { result, decadeInfo, decade, handleCalculate } = useStorageCalculator();
+  const [result, setResult] = useState(null);
+
+  const handleCalculate = (calculationResult) => {
+    setResult(calculationResult);
+  };
 
   return (
-    <div className={styles.container}>
+    <div>
+      <h1>Home Page</h1>
       <InputForm onCalculate={handleCalculate} />
-      {result && <div className={styles.result}>{result}</div>}
-      {decadeInfo && (
-        <div className={styles.decadeInfo}>
-          <h2>{decade}</h2>
-          <p>{decadeInfo.description}</p>
-          <img src={decadeInfo.photo} alt={`${decade} storage`} style={{ width: '300px', height: 'auto' }} />
-        </div>
-      )}
+      {result && <div>{result}</div>}
     </div>
   );
 };

@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { loadCSV } from '../utils/loadCSV'; // Adjust the path if needed
-import styles from './BudgetCalculator.module.css'; // Import the CSS module
 
 const BudgetCalculator = () => {
   const [data, setData] = useState([]);
@@ -84,26 +83,26 @@ const BudgetCalculator = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Budget Calculator</h1>
-      <div className={styles.section}>
-        <h2 className={styles.subtitle}>General Calculation</h2>
+    <div className="container">
+      <h1 className="title">Budget Calculator</h1>
+      <div className="section">
+        <h2 className="subtitle">General Calculation</h2>
         <div>
-          <label className={styles.label}>Budget:</label>
+          <label className="label">Budget:</label>
           <input
             type="number"
             value={budget}
             onChange={(e) => setBudget(e.target.value)}
             required
-            className={styles.input}
+            className="input"
           />
         </div>
         <div>
-          <label className={styles.label}>Unit:</label>
+          <label className="label">Unit:</label>
           <select
             value={generalUnit}
             onChange={(e) => setGeneralUnit(e.target.value)}
-            className={styles.select}
+            className="select"
           >
             <option value="TB">TB</option>
             <option value="GB">GB</option>
@@ -111,11 +110,11 @@ const BudgetCalculator = () => {
           </select>
         </div>
         <div>
-          <label className={styles.label}>Storage Type:</label>
+          <label className="label">Storage Type:</label>
           <select
             value={generalStorageType}
             onChange={(e) => setGeneralStorageType(e.target.value)}
-            className={styles.select}
+            className="select"
           >
             <option value="Memory">Memory</option>
             <option value="Flash">Flash</option>
@@ -126,13 +125,13 @@ const BudgetCalculator = () => {
         <button
           type="button"
           onClick={handleGeneralCalculate}
-          className={styles.button}
+          className="button"
         >
           Calculate
         </button>
         {result && Array.isArray(result) && (
           <div>
-            <h2 className={styles.subtitle}>Results:</h2>
+            <h2 className="subtitle">Results:</h2>
             {result.map((item, index) => (
               <div key={index}>
                 <h3>{item.year}</h3>
@@ -142,42 +141,42 @@ const BudgetCalculator = () => {
           </div>
         )}
       </div>
-      <div className={styles.section}>
-        <h2 className={styles.subtitle}>Specific Calculation</h2>
+      <div className="section">
+        <h2 className="subtitle">Specific Calculation</h2>
         <div>
-          <label className={styles.label}>Amount:</label>
+          <label className="label">Amount:</label>
           <input
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             required
-            className={styles.input}
+            className="input"
           />
         </div>
         <div>
-          <label className={styles.label}>Unit:</label>
-          <select value={unit} onChange={(e) => setUnit(e.target.value)} className={styles.select}>
+          <label className="label">Unit:</label>
+          <select value={unit} onChange={(e) => setUnit(e.target.value)} className="select">
             <option value="TB">TB</option>
             <option value="GB">GB</option>
             <option value="MB">MB</option>
           </select>
         </div>
         <div>
-          <label className={styles.label}>Year:</label>
+          <label className="label">Year:</label>
           <input
             type="number"
             value={year}
             onChange={(e) => setYear(e.target.value)}
             required
-            className={styles.input}
+            className="input"
           />
         </div>
         <div>
-          <label className={styles.label}>Storage Type:</label>
+          <label className="label">Storage Type:</label>
           <select
             value={storageType}
             onChange={(e) => setStorageType(e.target.value)}
-            className={styles.select}
+            className="select"
           >
             <option value="Memory">Memory</option>
             <option value="Flash">Flash</option>
@@ -188,7 +187,7 @@ const BudgetCalculator = () => {
         <button
           type="button"
           onClick={handleSpecificCalculate}
-          className={styles.button}
+          className="button"
         >
           Calculate
         </button>

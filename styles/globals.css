@@ -34,3 +34,61 @@ nav ul li a {
 .title {
   margin-bottom: 20px; /* Space below the title */
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.section {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.title, .subtitle {
+  margin-bottom: 20px;
+}
+
+.label {
+  margin-right: 10px;
+}
+
+.input, .select {
+  margin-bottom: 10px;
+}
+
+.button {
+  margin-top: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.section {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.title, .subtitle {
+  margin-bottom: 20px;
+}
+
+.label {
+  margin-right: 10px;
+}
+
+.input, .select {
+  margin-bottom: 10px;
+}
+
+.button {
+  margin-top: 10px;
+}
