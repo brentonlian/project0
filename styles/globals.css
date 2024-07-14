@@ -92,3 +92,52 @@ nav ul li a {
 .button {
   margin-top: 10px;
 }
+
+/* globals.css */
+.calculator-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.calculator-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.calculator-form input,
+.calculator-form select,
+.calculator-form button {
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.calculator-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.calculator-form button:hover {
+  background-color: #0056b3;
+}
+
+.decades-info {
+  margin-top: 20px;
+}
+
+.decades-info img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+

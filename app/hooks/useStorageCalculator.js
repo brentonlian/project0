@@ -9,17 +9,32 @@ const useStorageCalculator = () => {
   const [result, setResult] = useState(null);
   const [decadeInfo, setDecadeInfo] = useState(null);
   const [decade, setDecade] = useState('');
+  const [loading, setLoading] = useState(true); // State for loading indication
+  const [error, setError] = useState(null); // State for error handling
 
   useEffect(() => {
     const fetchData = async () => {
-      const csvData = await loadCSV('/data.csv');
-      setData(csvData);
+      try {
+        const csvData = await loadCSV('/data.csv');
+        setData(csvData);
+        setLoading(false);
+        console.log('Loaded data:', csvData); // Debug: log loaded data
+      } catch (err) {
+        setError('Failed to load data.');
+        setLoading(false);
+      }
     };
     fetchData();
   }, []);
 
   const handleCalculate = async ({ amount, unit, year, storageType }) => {
-    const yearData = data.find((row) => row.Year === year);
+    if (loading) {
+      setResult("Data is still loading. Please try again.");
+      return;
+    }
+
+    const parsedYear = parseInt(year, 10);
+    const yearData = data.find((row) => parseInt(row.Year, 10) === parsedYear);
     if (yearData) {
       const costPerTerabyte = parseFloat(yearData[storageType]);
       if (isNaN(costPerTerabyte)) {
@@ -31,7 +46,7 @@ const useStorageCalculator = () => {
       const resultMessage = `The estimated cost of ${amount} ${unit} of ${storageType} storage in ${year} was $${totalCost.toFixed(2)}.`;
       setResult(resultMessage);
 
-      const calculatedDecade = getDecade(year);
+      const calculatedDecade = getDecade(parsedYear);
       setDecade(calculatedDecade);
       const decadeData = await fetchDecadeInfo(calculatedDecade);
       if (decadeData) {
@@ -40,7 +55,8 @@ const useStorageCalculator = () => {
         setDecadeInfo(null);
       }
     } else {
-      setResult("Year not found in data.");
+      setResult(`Year ${year} not found in data.`);
+      console.log('Year not found:', year, data); // Debug: log year and data
     }
   };
 
@@ -61,9 +77,17 @@ const useStorageCalculator = () => {
   };
 
   const fetchDecadeInfo = async (decade) => {
-    const response = await fetch('/decadesInfo.json');
-    const data = await response.json();
-    return data[decade];
+    try {
+      const response = await fetch('/decadesInfo.json');
+      if (!response.ok) {
+        throw new Error('Failed to fetch decade info.');
+      }
+      const data = await response.json();
+      return data[decade];
+    } catch (err) {
+      setError('Failed to load decade info.');
+      return null;
+    }
   };
 
   return {
@@ -71,6 +95,8 @@ const useStorageCalculator = () => {
     decadeInfo,
     decade,
     handleCalculate,
+    loading,
+    error,
   };
 };
 
