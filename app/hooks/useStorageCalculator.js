@@ -1,4 +1,7 @@
 // app/hooks/useStorageCalculator.js
+
+//cost per terabyte NAN, 
+//uncaught in promise console
 'use client';
 
 import { useState, useEffect } from 'react';
