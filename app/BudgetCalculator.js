@@ -8,11 +8,13 @@ const BudgetCalculator = () => {
   const [budget, setBudget] = useState('');
   const [generalResult, setGeneralResult] = useState(null);
   const [specificResult, setSpecificResult] = useState(null);
-  const [dollarAmount, setDollarAmount] = useState('');
-  const [unit, setUnit] = useState('TB');
-  const [year, setYear] = useState('');
-  const [storageType, setStorageType] = useState('Memory');
-  const [generalUnit, setGeneralUnit] = useState('TB');
+  const [formData, setFormData] = useState({
+    dollarAmount: '',
+    unit: 'TB',
+    year: '',
+    storageType: 'Memory',
+    generalUnit: 'TB',
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +24,14 @@ const BudgetCalculator = () => {
     fetchData();
   }, []);
 
-  const handleGeneralCalculate = () => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleGeneralCalculate = (e) => {
+    e.preventDefault();
+    const { budget, generalUnit } = formData;
     if (budget) {
       const storageTypes = ['Memory', 'Flash', 'HDD', 'SSD'];
       const possiblePurchases = {};
@@ -45,7 +54,9 @@ const BudgetCalculator = () => {
     }
   };
 
-  const handleSpecificCalculate = () => {
+  const handleSpecificCalculate = (e) => {
+    e.preventDefault();
+    const { dollarAmount, unit, year, storageType } = formData;
     if (dollarAmount && unit && year && storageType) {
       const yearData = data.find((row) => row.Year === year);
       if (yearData) {
@@ -91,101 +102,86 @@ const BudgetCalculator = () => {
   return (
     <div className="container">
       <h1 className="title">Budget Calculator</h1>
+      
+      {/* General Calculation Form */}
       <div className="section">
         <h2 className="subtitle">General Calculation</h2>
-        <div>
-          <label className="label">Budget:</label>
+        <form className="calculator-form" onSubmit={handleGeneralCalculate}>
           <input
             type="number"
-            value={budget}
-            onChange={(e) => setBudget(e.target.value)}
+            name="budget"
+            value={formData.budget}
+            onChange={handleChange}
+            placeholder="Budget"
             required
             className="input"
           />
-        </div>
-        <div>
-          <label className="label">Unit:</label>
           <select
-            value={generalUnit}
-            onChange={(e) => setGeneralUnit(e.target.value)}
+            name="generalUnit"
+            value={formData.generalUnit}
+            onChange={handleChange}
             className="select"
           >
             <option value="TB">TB</option>
             <option value="GB">GB</option>
             <option value="MB">MB</option>
           </select>
-        </div>
-        <button
-          type="button"
-          onClick={handleGeneralCalculate}
-          className="button"
-        >
-          Calculate
-        </button>
+          <button type="submit" className="button">Calculate</button>
+        </form>
         {generalResult && (
           <div>
             <h2 className="subtitle">Results:</h2>
             {Object.keys(generalResult).map(year => (
               <div key={year}>
                 <h3>{year}</h3>
-                {generalResult[year].map((storageInfo, index) => (
-                  <p key={index}>{storageInfo}</p>
-                ))}
+                {Array.isArray(generalResult[year]) ? (
+                  generalResult[year].map((storageInfo, index) => (
+                    <p key={index}>{storageInfo}</p>
+                  ))
+                ) : (
+                  <p>{generalResult[year]}</p>
+                )}
               </div>
             ))}
           </div>
         )}
       </div>
+      
+      {/* Specific Calculation Form */}
       <div className="section">
         <h2 className="subtitle">Specific Calculation</h2>
-        <div>
-          <label className="label">Budget:</label>
+        <form className="calculator-form" onSubmit={handleSpecificCalculate}>
           <input
             type="number"
-            value={dollarAmount}
-            onChange={(e) => setDollarAmount(e.target.value)}
+            name="dollarAmount"
+            value={formData.dollarAmount}
+            onChange={handleChange}
+            placeholder="Dollar Amount"
             required
             className="input"
           />
-        </div>
-        <div>
-          <label className="label">Unit:</label>
-          <select value={unit} onChange={(e) => setUnit(e.target.value)} className="select">
+          <select name="unit" value={formData.unit} onChange={handleChange} className="select">
             <option value="TB">TB</option>
             <option value="GB">GB</option>
             <option value="MB">MB</option>
           </select>
-        </div>
-        <div>
-          <label className="label">Year:</label>
           <input
             type="number"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
+            name="year"
+            value={formData.year}
+            onChange={handleChange}
+            placeholder="Year"
             required
             className="input"
           />
-        </div>
-        <div>
-          <label className="label">Storage Type:</label>
-          <select
-            value={storageType}
-            onChange={(e) => setStorageType(e.target.value)}
-            className="select"
-          >
+          <select name="storageType" value={formData.storageType} onChange={handleChange} className="select">
             <option value="Memory">Memory</option>
             <option value="Flash">Flash</option>
             <option value="HDD">HDD</option>
             <option value="SSD">SSD</option>
           </select>
-        </div>
-        <button
-          type="button"
-          onClick={handleSpecificCalculate}
-          className="button"
-        >
-          Calculate
-        </button>
+          <button type="submit" className="button">Calculate</button>
+        </form>
         {specificResult !== null && typeof specificResult === 'string' && <div>{specificResult}</div>}
       </div>
     </div>

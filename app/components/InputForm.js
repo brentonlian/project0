@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useStorageCalculator from '../hooks/useStorageCalculator';
 import '../../styles/globals.css'; // Ensure global styles are imported
 
-const StorageCalculatorComponent = () => {
+const InputForm = () => {
   const { result, decadeInfo, decade, handleCalculate, loading, error } = useStorageCalculator();
   const [formData, setFormData] = useState({ amount: '', unit: 'TB', year: '', storageType: '' });
 
@@ -13,6 +13,7 @@ const StorageCalculatorComponent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('Submitted Form Data:', formData);
     handleCalculate(formData);
   };
 
@@ -60,4 +61,4 @@ const StorageCalculatorComponent = () => {
   );
 };
 
-export default StorageCalculatorComponent;
+export default InputForm;

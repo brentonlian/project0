@@ -9,8 +9,8 @@ const useStorageCalculator = () => {
   const [result, setResult] = useState(null);
   const [decadeInfo, setDecadeInfo] = useState(null);
   const [decade, setDecade] = useState('');
-  const [loading, setLoading] = useState(true); // State for loading indication
-  const [error, setError] = useState(null); // State for error handling
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,19 +28,28 @@ const useStorageCalculator = () => {
   }, []);
 
   const handleCalculate = async ({ amount, unit, year, storageType }) => {
+    console.log('Form Data:', { amount, unit, year, storageType }); // Debug: log form data
+
     if (loading) {
       setResult("Data is still loading. Please try again.");
       return;
     }
 
     const parsedYear = parseInt(year, 10);
+    console.log('Parsed Year:', parsedYear); // Debug: log parsed year
+
     const yearData = data.find((row) => parseInt(row.Year, 10) === parsedYear);
+    console.log('Year Data:', yearData); // Debug: log year data
+
     if (yearData) {
       const costPerTerabyte = parseFloat(yearData[storageType]);
+      console.log('Cost per Terabyte:', costPerTerabyte); // Debug: log cost per terabyte
+
       if (isNaN(costPerTerabyte)) {
         setResult("Cost data not available for selected storage type and year.");
         return;
       }
+
       const amountInTerabytes = convertToTerabytes(parseFloat(amount), unit);
       const totalCost = costPerTerabyte * amountInTerabytes;
       const resultMessage = `The estimated cost of ${amount} ${unit} of ${storageType} storage in ${year} was $${totalCost.toFixed(2)}.`;
