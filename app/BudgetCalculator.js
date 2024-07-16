@@ -1,7 +1,9 @@
+// BudgetCalculator.js
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { loadCSV } from '../utils/loadCSV'; // Adjust the path if needed
+import '../styles/BudgetCalculator.css'
 
 const BudgetCalculator = () => {
   const [data, setData] = useState([]);
@@ -129,17 +131,17 @@ const BudgetCalculator = () => {
           <button type="submit" className="button">Calculate</button>
         </form>
         {generalResult && (
-          <div>
+          <div className="results-container">
             <h2 className="subtitle">Results:</h2>
             {Object.keys(generalResult).map(year => (
-              <div key={year}>
+              <div key={year} className="result-year">
                 <h3>{year}</h3>
                 {Array.isArray(generalResult[year]) ? (
                   generalResult[year].map((storageInfo, index) => (
-                    <p key={index}>{storageInfo}</p>
+                    <p key={index} className="result-item">{storageInfo}</p>
                   ))
                 ) : (
-                  <p>{generalResult[year]}</p>
+                  <p className="result-item">{generalResult[year]}</p>
                 )}
               </div>
             ))}
@@ -182,7 +184,7 @@ const BudgetCalculator = () => {
           </select>
           <button type="submit" className="button">Calculate</button>
         </form>
-        {specificResult !== null && typeof specificResult === 'string' && <div>{specificResult}</div>}
+        {specificResult !== null && typeof specificResult === 'string' && <div className="results-container">{specificResult}</div>}
       </div>
     </div>
   );
