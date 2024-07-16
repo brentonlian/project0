@@ -1,7 +1,3 @@
-// app/hooks/useStorageCalculator.js
-
-//cost per terabyte NAN, 
-//uncaught in promise console
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -12,8 +8,8 @@ const useStorageCalculator = () => {
   const [result, setResult] = useState(null);
   const [decadeInfo, setDecadeInfo] = useState(null);
   const [decade, setDecade] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true); // State for loading indication
+  const [error, setError] = useState(null); // State for error handling
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,28 +27,25 @@ const useStorageCalculator = () => {
   }, []);
 
   const handleCalculate = async ({ amount, unit, year, storageType }) => {
-    console.log('Form Data:', { amount, unit, year, storageType }); // Debug: log form data
-
     if (loading) {
       setResult("Data is still loading. Please try again.");
       return;
     }
 
+    console.log('Selected storage type:', storageType); // Debug: log storage type
     const parsedYear = parseInt(year, 10);
-    console.log('Parsed Year:', parsedYear); // Debug: log parsed year
-
     const yearData = data.find((row) => parseInt(row.Year, 10) === parsedYear);
-    console.log('Year Data:', yearData); // Debug: log year data
-
     if (yearData) {
-      const costPerTerabyte = parseFloat(yearData[storageType]);
-      console.log('Cost per Terabyte:', costPerTerabyte); // Debug: log cost per terabyte
-
+      console.log('Year data:', yearData); // Debug: log year data
+      console.log('Available storage types:', Object.keys(yearData)); // Debug: log available storage types
+      const costPerTerabyteStr = yearData[storageType];
+      console.log('Cost per terabyte (raw):', costPerTerabyteStr); // Debug: log raw cost per terabyte
+      const costPerTerabyte = parseFloat(costPerTerabyteStr);
+      console.log('Cost per terabyte (parsed):', costPerTerabyte); // Debug: log parsed cost per terabyte
       if (isNaN(costPerTerabyte)) {
         setResult("Cost data not available for selected storage type and year.");
         return;
       }
-
       const amountInTerabytes = convertToTerabytes(parseFloat(amount), unit);
       const totalCost = costPerTerabyte * amountInTerabytes;
       const resultMessage = `The estimated cost of ${amount} ${unit} of ${storageType} storage in ${year} was $${totalCost.toFixed(2)}.`;
