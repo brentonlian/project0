@@ -3,25 +3,29 @@
 
 import React, { useState, useEffect } from 'react';
 import { loadCSV } from '../utils/loadCSV'; // Adjust the path if needed
-import '../styles/BudgetCalculator.css';
+import '../styles/globals.css'; // Ensure global styles are imported
 
 const BudgetCalculator = () => {
   const [data, setData] = useState([]);
   const [budget, setBudget] = useState('');
   const [generalResult, setGeneralResult] = useState(null);
   const [specificResult, setSpecificResult] = useState(null);
+  const [years, setYears] = useState([]);
   const [formData, setFormData] = useState({
     dollarAmount: '',
     unit: 'TB',
     year: '',
     storageType: 'Memory',
     generalUnit: 'TB',
+    generalYear: '',
   });
 
   useEffect(() => {
     const fetchData = async () => {
       const csvData = await loadCSV('/data.csv');
       setData(csvData);
+      const availableYears = csvData.map(row => row.Year);
+      setYears(availableYears);
     };
     fetchData();
   }, []);
@@ -33,26 +37,24 @@ const BudgetCalculator = () => {
 
   const handleGeneralCalculate = (e) => {
     e.preventDefault();
-    const { budget, generalUnit } = formData;
-    if (budget) {
+    const { budget, generalUnit, generalYear } = formData;
+    if (budget && generalYear) {
       const storageTypes = ['Memory', 'Flash', 'HDD', 'SSD'];
-      const possiblePurchases = {};
+      const possiblePurchases = [];
 
       storageTypes.forEach(type => {
         data.forEach(row => {
-          const year = row.Year;
-          const costPerTerabyte = parseFloat(row[type]);
-          if (isNaN(costPerTerabyte)) return;
-          const convertedBudget = convertFromTerabytes(budget, generalUnit);
-          const amount = convertedBudget / costPerTerabyte;
-          if (!possiblePurchases[year]) {
-            possiblePurchases[year] = [];
+          if (row.Year === generalYear) {
+            const costPerTerabyte = parseFloat(row[type]);
+            if (isNaN(costPerTerabyte)) return;
+            const convertedBudget = convertFromTerabytes(budget, generalUnit);
+            const amount = convertedBudget / costPerTerabyte;
+            possiblePurchases.push(`${amount.toFixed(2)} ${generalUnit} of ${type}`);
           }
-          possiblePurchases[year].push(`${amount.toFixed(2)} ${generalUnit} of ${type}`);
         });
       });
 
-      setGeneralResult(possiblePurchases);
+      setGeneralResult({ year: generalYear, purchases: possiblePurchases });
     }
   };
 
@@ -102,8 +104,7 @@ const BudgetCalculator = () => {
   };
 
   return (
-    <div className="container">
-      <h1 className="title">Budget Calculator</h1>
+    <div className="calculator-container">
       
       {/* General Calculation Form */}
       <div className="section">
@@ -128,21 +129,33 @@ const BudgetCalculator = () => {
             <option value="GB">GB</option>
             <option value="MB">MB</option>
           </select>
+          <select
+            name="generalYear"
+            value={formData.generalYear}
+            onChange={handleChange}
+            className="select"
+            required
+          >
+            <option value="">Select Year</option>
+            {years.map(year => (
+              <option key={year} value={year}>{year}</option>
+            ))}
+          </select>
           <button type="submit" className="button">Calculate</button>
         </form>
+      </div>
+      
+      <div>
         {generalResult && (
-          <div className="results-container">
-            <h2 className="subtitle">Results:</h2>
-            {Object.keys(generalResult).map(year => (
-              <div key={year} className="result-year">
-                <h3>{year}</h3>
-                {Array.isArray(generalResult[year]) ? (
-                  <p className="result-item">{generalResult[year].join(', ')}</p>
-                ) : (
-                  <p className="result-item">{generalResult[year]}</p>
-                )}
-              </div>
-            ))}
+          <div>
+            <h2>Results for {generalResult.year}:</h2>
+            <div>
+              {generalResult.purchases.map((result, index) => (
+                <div key={index}>
+                  <p>{result}</p>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
@@ -182,7 +195,14 @@ const BudgetCalculator = () => {
           </select>
           <button type="submit" className="button">Calculate</button>
         </form>
-        {specificResult !== null && typeof specificResult === 'string' && <div className="results-container">{specificResult}</div>}
+      </div>
+      
+      <div>
+        {specificResult !== null && typeof specificResult === 'string' && (
+          <div>
+            {specificResult}
+          </div>
+        )}
       </div>
     </div>
   );

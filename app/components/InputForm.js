@@ -1,4 +1,3 @@
-// InputForm.js
 import React, { useState } from 'react';
 import useStorageCalculator from '../hooks/useStorageCalculator';
 import '../../styles/globals.css'; // Ensure global styles are imported
