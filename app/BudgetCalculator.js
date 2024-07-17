@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { loadCSV } from '../utils/loadCSV'; // Adjust the path if needed
-import '../styles/BudgetCalculator.css'
+import '../styles/BudgetCalculator.css';
 
 const BudgetCalculator = () => {
   const [data, setData] = useState([]);
@@ -137,9 +137,7 @@ const BudgetCalculator = () => {
               <div key={year} className="result-year">
                 <h3>{year}</h3>
                 {Array.isArray(generalResult[year]) ? (
-                  generalResult[year].map((storageInfo, index) => (
-                    <p key={index} className="result-item">{storageInfo}</p>
-                  ))
+                  <p className="result-item">{generalResult[year].join(', ')}</p>
                 ) : (
                   <p className="result-item">{generalResult[year]}</p>
                 )}
