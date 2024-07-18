@@ -1,4 +1,3 @@
-// BudgetCalculator.js
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -18,6 +17,7 @@ const BudgetCalculator = () => {
     storageType: 'Memory',
     generalUnit: 'TB',
     generalYear: '',
+    budget: ''
   });
 
   useEffect(() => {
@@ -129,18 +129,15 @@ const BudgetCalculator = () => {
             <option value="GB">GB</option>
             <option value="MB">MB</option>
           </select>
-          <select
+          <input
+            type="number"
             name="generalYear"
             value={formData.generalYear}
             onChange={handleChange}
-            className="select"
+            placeholder="Year"
             required
-          >
-            <option value="">Select Year</option>
-            {years.map(year => (
-              <option key={year} value={year}>{year}</option>
-            ))}
-          </select>
+            className="input"
+          />
           <button type="submit" className="button">Calculate</button>
         </form>
       </div>

@@ -1,4 +1,12 @@
-/* styles/globals.css */
+body {
+  font-family: Arial, sans-serif;
+}
+
+* {
+  font-family: Arial, sans-serif;
+}
+
+
 header {
   background: #333;
   color: #fff;
