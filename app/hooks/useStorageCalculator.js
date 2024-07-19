@@ -28,7 +28,9 @@ const useStorageCalculator = () => {
 
   const handleCalculate = async ({ amount, unit, year, storageType }) => {
     if (loading) {
-      setResult("Data is still loading. Please try again.");
+      setError("Data is still loading. Please try again.");
+      setResult(null); // Clear previous results
+      setDecadeInfo(null); // Clear previous decade info
       return;
     }
 
@@ -43,13 +45,16 @@ const useStorageCalculator = () => {
       const costPerTerabyte = parseFloat(costPerTerabyteStr);
       console.log('Cost per terabyte (parsed):', costPerTerabyte); // Debug: log parsed cost per terabyte
       if (isNaN(costPerTerabyte)) {
-        setResult("Cost data not available for selected storage type and year.");
+        setError("Cost data not available for selected storage type and year.");
+        setResult(null); // Clear previous results
+        setDecadeInfo(null); // Clear previous decade info
         return;
       }
       const amountInTerabytes = convertToTerabytes(parseFloat(amount), unit);
       const totalCost = costPerTerabyte * amountInTerabytes;
-      const resultMessage = `The estimated cost of ${amount} ${unit} of ${storageType} storage in ${year} was $${totalCost.toFixed(2)}.`;
+      const resultMessage = `The estimated cost of ${amount} ${unit} of ${storageType} storage in ${year} was $${totalCost.toFixed(2)}`;
       setResult(resultMessage);
+      setError(null); // Clear any previous errors
 
       const calculatedDecade = getDecade(parsedYear);
       setDecade(calculatedDecade);
@@ -60,7 +65,9 @@ const useStorageCalculator = () => {
         setDecadeInfo(null);
       }
     } else {
-      setResult(`Year ${year} not found in data.`);
+      setError(`Year ${year} not found in data.`);
+      setResult(null); // Clear previous results
+      setDecadeInfo(null); // Clear previous decade info
       console.log('Year not found:', year, data); // Debug: log year and data
     }
   };
@@ -91,6 +98,8 @@ const useStorageCalculator = () => {
       return data[decade];
     } catch (err) {
       setError('Failed to load decade info.');
+      setResult(null); // Clear previous results
+      setDecadeInfo(null); // Clear previous decade info
       return null;
     }
   };

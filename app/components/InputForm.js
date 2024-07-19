@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useStorageCalculator from '../hooks/useStorageCalculator';
-import '../../styles/globals.css'; // Ensure global styles are imported
+import '../../styles/globals.css'; 
 
 const InputForm = () => {
   const { result, decadeInfo, decade, handleCalculate, loading, error } = useStorageCalculator();
@@ -16,6 +16,16 @@ const InputForm = () => {
     handleCalculate(formData);
   };
 
+  const resetForm = () => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      amount: '',
+      unit: '',
+      year:'TB',
+      year: '',
+      storageType: 'HDD',
+    }))};
+
   return (
     <div className="calculator-container">
       <form className="calculator-form" onSubmit={handleSubmit}>
@@ -24,7 +34,7 @@ const InputForm = () => {
           name="amount"
           value={formData.amount}
           onChange={handleChange}
-          placeholder="Amount"
+          placeholder="Amount of storage"
         />
         <select name="unit" value={formData.unit} onChange={handleChange}>
           <option value="TB">TB</option>
@@ -45,6 +55,7 @@ const InputForm = () => {
           <option value="Memory">Memory</option>
         </select>
         <button type="submit">Calculate</button>
+        <button type="button" className="button" onClick={resetForm}>Reset</button>
       </form>
       {loading && <div>Loading data...</div>}
       {error && <div style={{ color: 'red' }}>{error}</div>}

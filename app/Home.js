@@ -12,6 +12,7 @@ const Home = () => {
 
   return (
     <div>
+      <h1 className="centered-text">Find out how much storage cost in the past</h1>
       <InputForm onCalculate={handleCalculate} />
       {result && <div>{result}</div>}
     </div>

@@ -136,6 +136,10 @@ nav ul li a {
   background-color: #0056b3;
 }
 
+.centered-text {
+  text-align: center;
+}
+
 
 .decades-info {
   margin-top: 20px;
