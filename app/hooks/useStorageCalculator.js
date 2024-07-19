@@ -1,3 +1,4 @@
+// hooks/useStorageCalculator.js
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -8,8 +9,8 @@ const useStorageCalculator = () => {
   const [result, setResult] = useState(null);
   const [decadeInfo, setDecadeInfo] = useState(null);
   const [decade, setDecade] = useState('');
-  const [loading, setLoading] = useState(true); // State for loading indication
-  const [error, setError] = useState(null); // State for error handling
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +18,6 @@ const useStorageCalculator = () => {
         const csvData = await loadCSV('/data.csv');
         setData(csvData);
         setLoading(false);
-        console.log('Loaded data:', csvData); // Debug: log loaded data
       } catch (err) {
         setError('Failed to load data.');
         setLoading(false);
@@ -28,33 +28,23 @@ const useStorageCalculator = () => {
 
   const handleCalculate = async ({ amount, unit, year, storageType }) => {
     if (loading) {
-      setError("Data is still loading. Please try again.");
-      setResult(null); // Clear previous results
-      setDecadeInfo(null); // Clear previous decade info
+      setResult("Data is still loading. Please try again.");
       return;
     }
 
-    console.log('Selected storage type:', storageType); // Debug: log storage type
     const parsedYear = parseInt(year, 10);
     const yearData = data.find((row) => parseInt(row.Year, 10) === parsedYear);
     if (yearData) {
-      console.log('Year data:', yearData); // Debug: log year data
-      console.log('Available storage types:', Object.keys(yearData)); // Debug: log available storage types
       const costPerTerabyteStr = yearData[storageType];
-      console.log('Cost per terabyte (raw):', costPerTerabyteStr); // Debug: log raw cost per terabyte
       const costPerTerabyte = parseFloat(costPerTerabyteStr);
-      console.log('Cost per terabyte (parsed):', costPerTerabyte); // Debug: log parsed cost per terabyte
       if (isNaN(costPerTerabyte)) {
-        setError("Cost data not available for selected storage type and year.");
-        setResult(null); // Clear previous results
-        setDecadeInfo(null); // Clear previous decade info
+        setResult("Cost data not available for selected storage type and year.");
         return;
       }
       const amountInTerabytes = convertToTerabytes(parseFloat(amount), unit);
       const totalCost = costPerTerabyte * amountInTerabytes;
       const resultMessage = `The estimated cost of ${amount} ${unit} of ${storageType} storage in ${year} was $${totalCost.toFixed(2)}`;
       setResult(resultMessage);
-      setError(null); // Clear any previous errors
 
       const calculatedDecade = getDecade(parsedYear);
       setDecade(calculatedDecade);
@@ -65,10 +55,7 @@ const useStorageCalculator = () => {
         setDecadeInfo(null);
       }
     } else {
-      setError(`Year ${year} not found in data.`);
-      setResult(null); // Clear previous results
-      setDecadeInfo(null); // Clear previous decade info
-      console.log('Year not found:', year, data); // Debug: log year and data
+      setResult(`Year ${year} not found in data.`);
     }
   };
 
@@ -98,10 +85,15 @@ const useStorageCalculator = () => {
       return data[decade];
     } catch (err) {
       setError('Failed to load decade info.');
-      setResult(null); // Clear previous results
-      setDecadeInfo(null); // Clear previous decade info
       return null;
     }
+  };
+
+  const reset = () => {
+    setResult(null);
+    setDecadeInfo(null);
+    setDecade('');
+    setError(null);
   };
 
   return {
@@ -111,6 +103,7 @@ const useStorageCalculator = () => {
     handleCalculate,
     loading,
     error,
+    reset,
   };
 };
 

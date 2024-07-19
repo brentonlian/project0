@@ -3,7 +3,7 @@ import useStorageCalculator from '../hooks/useStorageCalculator';
 import '../../styles/globals.css'; 
 
 const InputForm = () => {
-  const { result, decadeInfo, decade, handleCalculate, loading, error } = useStorageCalculator();
+  const { result, decadeInfo, decade, handleCalculate, loading, error, reset } = useStorageCalculator();
   const [formData, setFormData] = useState({ amount: '', unit: 'TB', year: '', storageType: 'HDD' });
 
   const handleChange = (e) => {
@@ -17,14 +17,9 @@ const InputForm = () => {
   };
 
   const resetForm = () => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      amount: '',
-      unit: '',
-      year:'TB',
-      year: '',
-      storageType: 'HDD',
-    }))};
+    setFormData({ amount: '', unit: 'TB', year: '', storageType: 'HDD' });
+    reset(); // Clear results and other states
+  };
 
   return (
     <div className="calculator-container">
