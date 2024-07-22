@@ -153,3 +153,25 @@ nav ul li a {
   border-radius: 8px;
 }
 
+button {
+  margin: 0 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+  border: 2px solid #000;
+}
+
+button.active {
+  background-color: #ddd;
+}
+
+label {
+  margin-right: 20px;
+}
+
+
+
+

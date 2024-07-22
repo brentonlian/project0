@@ -179,7 +179,7 @@ const BudgetCalculator = () => {
       </div>
 
       <div>
-        {yearNotFound && <div style={{ color: 'red' }}>Year not found in data.</div>}
+        {yearNotFound && <div style={{ color: 'black' }}>Year not found in data.</div>}
         {generalResult && (
           <div>
             <h2>For ${formData.budget} in {generalResult.year} you could purchase:</h2>
@@ -233,8 +233,8 @@ const BudgetCalculator = () => {
       </div>
 
       <div>
-        {specificYearNotFound && <div style={{ color: 'red' }}>Year not found in data.</div>}
-        {storageTypeNotAvailable && <div style={{ color: 'red' }}>Selected storage type not available for the selected year.</div>}
+        {specificYearNotFound && <div style={{ color: 'black' }}>Year not found in data.</div>}
+        {storageTypeNotAvailable && <div style={{ color: 'black' }}>Selected storage type not available for the selected year.</div>}
         {specificResult !== null && typeof specificResult === 'string' && (
           <div>
             {specificResult}
