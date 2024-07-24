@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { loadCSV } from '../utils/loadCSV'; // Adjust the path if needed
 import '../styles/globals.css'; // Ensure global styles are imported
 
@@ -31,7 +31,11 @@ const BudgetCalculator = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    console.log(`Updating field: ${name} with value: ${value}`);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
   const findCostPerTerabyte = (year, type) => {
@@ -48,12 +52,11 @@ const BudgetCalculator = () => {
     return convertFromTerabytes(amountInTerabytes, unit);
   };
 
-  //General Calculation Function
-  const handleGeneralCalculate = (e) => {
+  const handleGeneralCalculate = useCallback((e) => {
     e.preventDefault();
     const { budget, generalUnit, generalYear } = formData;
+    console.log('General calculation triggered:', formData);
     
-
     if (budget && generalYear) {
       const storageTypes = ['Memory', 'Flash', 'HDD', 'SSD'];
       const possiblePurchases = [];
@@ -68,14 +71,14 @@ const BudgetCalculator = () => {
       });
 
       setYearNotFound(!yearExists);
-      setGeneralResult(yearExists ? { year: generalYear, purchases: possiblePurchases } : null);
+      setGeneralResult(yearExists ? { budget: budget, year: generalYear, purchases: possiblePurchases } : null);
     }
-  };
+  }, [formData, data]);
 
-  //Specific Calculation Function
-  const handleSpecificCalculate = (e) => {
+  const handleSpecificCalculate = useCallback((e) => {
     e.preventDefault();
     const { dollarAmount, unit, year, storageType } = formData;
+    console.log('Specific calculation triggered:', formData);
 
     if (dollarAmount && unit && year && storageType) {
       const yearData = data.find(row => row.Year === year);
@@ -96,7 +99,7 @@ const BudgetCalculator = () => {
 
       const amountInTerabytes = parseFloat(dollarAmount) / costPerTerabyte;
       const convertedAmount = convertFromTerabytes(amountInTerabytes, unit);
-      const resultMessage = `For $${dollarAmount} 2023 USD, you could buy ${convertedAmount.toFixed(2)} ${unit} of ${storageType} storage in ${year}.`;
+      const resultMessage = `For $${dollarAmount} in ${year}, you could buy ${convertedAmount.toFixed(2)} ${unit} of ${storageType} storage.`;
 
       setSpecificYearNotFound(false);
       setStorageTypeNotAvailable(false);
@@ -104,7 +107,7 @@ const BudgetCalculator = () => {
     } else {
       setSpecificResult("Please enter all fields.");
     }
-  };
+  }, [formData, data]);
 
   const convertFromTerabytes = (amount, unit) => {
     switch (unit) {
@@ -146,7 +149,7 @@ const BudgetCalculator = () => {
       {/* General Calculation Form */}
       <div className="section">
         <h2 className="subtitle">Reverse Calculation</h2>
-        <h3 className="subtitle">Enter budget, storage unit, and year </h3>
+        <h3 className="subtitle">Enter budget, storage unit, and year</h3>
         <form className="calculator-form" onSubmit={handleGeneralCalculate}>
           <input
             type="number"
@@ -185,7 +188,7 @@ const BudgetCalculator = () => {
         {yearNotFound && <div style={{ color: 'black' }}>Year not found in data.</div>}
         {generalResult && (
           <div>
-            <h2>For ${formData.budget} in {generalResult.year} you could purchase:</h2>
+            <h2>For ${generalResult.budget} in {generalResult.year} you could purchase:</h2>
             <div>
               {generalResult.purchases.map((result, index) => (
                 <div key={index}>
