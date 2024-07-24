@@ -16,9 +16,10 @@ const InputForm = () => {
     handleCalculate(formData);
   };
 
+  //Clear results and form data
   const resetForm = () => {
     setFormData({ amount: '', unit: 'TB', year: '', storageType: 'HDD' });
-    reset(); // Clear results and other states
+    reset(); 
   };
 
   return (

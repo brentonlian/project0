@@ -6,7 +6,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 
-// Define storage types and their colors
+// Storage types and colors
 const storageTypes = {
   Memory: '#ff6347', // Tomato
   Flash: '#4682b4', // SteelBlue
@@ -19,9 +19,9 @@ const decades = ['1950', '1960', '1970', '1980', '1990', '2000', '2010', '2020']
 const convertToUnit = (value, unit) => {
   switch (unit) {
     case 'GB':
-      return value / 1024; // Convert GB to TB
+      return value / 1024; 
     case 'MB':
-      return value / (1024 * 1024); // Convert MB to TB
+      return value / (1024 * 1024); 
     default:
       return value; // Already in TB
   }
@@ -58,6 +58,7 @@ const GraphPage = () => {
   const filterDataByDecadesAndStorageTypes = (data, decades, storageTypes) => {
     const filtered = data.filter(row => {
       const year = parseInt(row.Year, 10);
+      //return selected decades and types
       return decades.some(decade => {
         const startYear = parseInt(decade, 10);
         const endYear = startYear + 9;

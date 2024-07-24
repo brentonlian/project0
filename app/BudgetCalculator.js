@@ -52,6 +52,7 @@ const BudgetCalculator = () => {
     return convertFromTerabytes(amountInTerabytes, unit);
   };
 
+  //general calculation function
   const handleGeneralCalculate = useCallback((e) => {
     e.preventDefault();
     const { budget, generalUnit, generalYear } = formData;
@@ -74,7 +75,8 @@ const BudgetCalculator = () => {
       setGeneralResult(yearExists ? { budget: budget, year: generalYear, purchases: possiblePurchases } : null);
     }
   }, [formData, data]);
-
+  
+//specific calculation function
   const handleSpecificCalculate = useCallback((e) => {
     e.preventDefault();
     const { dollarAmount, unit, year, storageType } = formData;

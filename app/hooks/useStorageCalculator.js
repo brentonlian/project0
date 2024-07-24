@@ -36,14 +36,18 @@ const useStorageCalculator = () => {
     const yearData = data.find((row) => parseInt(row.Year, 10) === parsedYear);
     if (yearData) {
       const costPerTerabyteStr = yearData[storageType];
+      //fix issues with data types
       const costPerTerabyte = parseFloat(costPerTerabyteStr);
       if (isNaN(costPerTerabyte)) {
+        //nullify results
         setResult("Cost data not available for selected storage type and year.");
+        setDecadeInfo(null);
+        setDecade('');
         return;
       }
       const amountInTerabytes = convertToTerabytes(parseFloat(amount), unit);
       const totalCost = costPerTerabyte * amountInTerabytes;
-      const resultMessage = `The estimated cost of ${amount} ${unit} of ${storageType} storage in ${year} was $${totalCost.toFixed(2)} in 2023 USD`;
+      const resultMessage = `The estimated cost of ${amount} ${unit} of ${storageType} storage in ${year} was $${totalCost.toFixed(2)} in 2023 USD.`;
       setResult(resultMessage);
 
       const calculatedDecade = getDecade(parsedYear);
@@ -55,7 +59,10 @@ const useStorageCalculator = () => {
         setDecadeInfo(null);
       }
     } else {
+      //nullify results
       setResult(`Year ${year} not found in data.`);
+      setDecadeInfo(null);
+      setDecade('');
     }
   };
 
