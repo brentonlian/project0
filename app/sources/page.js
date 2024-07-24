@@ -6,6 +6,9 @@ const Sources = () => {
     <div>
       <div style={{ textAlign: 'center' }}>
         <h1>Sources</h1>
+        <h2>Historical Prices</h2>
+        <p>J. C. McCallum. “Historical price of computer memory and storage." ourworldindata.org. https://ourworldindata.org/grapher/historical-cost-of-computer-memory-and-storage (accessed Jul. 23, 2024).
+        </p>
         <h2>Timeline</h2>
         <p>Computer History Museum. “Timeline of Computer History.” computerhistory.org. 
         https://www.computerhistory.org/timeline/memory-storage/ (accessed Jul. 21, 2024).</p>

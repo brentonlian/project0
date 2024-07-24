@@ -48,9 +48,11 @@ const BudgetCalculator = () => {
     return convertFromTerabytes(amountInTerabytes, unit);
   };
 
+  //General Calculation Function
   const handleGeneralCalculate = (e) => {
     e.preventDefault();
     const { budget, generalUnit, generalYear } = formData;
+    
 
     if (budget && generalYear) {
       const storageTypes = ['Memory', 'Flash', 'HDD', 'SSD'];
@@ -70,6 +72,7 @@ const BudgetCalculator = () => {
     }
   };
 
+  //Specific Calculation Function
   const handleSpecificCalculate = (e) => {
     e.preventDefault();
     const { dollarAmount, unit, year, storageType } = formData;
@@ -93,7 +96,7 @@ const BudgetCalculator = () => {
 
       const amountInTerabytes = parseFloat(dollarAmount) / costPerTerabyte;
       const convertedAmount = convertFromTerabytes(amountInTerabytes, unit);
-      const resultMessage = `For $${dollarAmount}, you could buy ${convertedAmount.toFixed(2)} ${unit} of ${storageType} storage in ${year}.`;
+      const resultMessage = `For $${dollarAmount} 2023 USD, you could buy ${convertedAmount.toFixed(2)} ${unit} of ${storageType} storage in ${year}.`;
 
       setSpecificYearNotFound(false);
       setStorageTypeNotAvailable(false);

@@ -43,7 +43,7 @@ const useStorageCalculator = () => {
       }
       const amountInTerabytes = convertToTerabytes(parseFloat(amount), unit);
       const totalCost = costPerTerabyte * amountInTerabytes;
-      const resultMessage = `The estimated cost of ${amount} ${unit} of ${storageType} storage in ${year} was $${totalCost.toFixed(2)}`;
+      const resultMessage = `The estimated cost of ${amount} ${unit} of ${storageType} storage in ${year} was $${totalCost.toFixed(2)} in 2023 USD`;
       setResult(resultMessage);
 
       const calculatedDecade = getDecade(parsedYear);

@@ -136,7 +136,7 @@ const GraphPage = () => {
 
       {/* Storage Types Section */}
       <div style={{ marginBottom: '1rem' }}>
-        <h2>Storage Type</h2>
+        <h2>Storage Types</h2>
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
