@@ -101,7 +101,7 @@ const BudgetCalculator = () => {
 
       const amountInTerabytes = parseFloat(dollarAmount) / costPerTerabyte;
       const convertedAmount = convertFromTerabytes(amountInTerabytes, unit);
-      const resultMessage = `For $${dollarAmount} in ${year}, you could buy ${convertedAmount.toFixed(2)} ${unit} of ${storageType} storage.`;
+      const resultMessage = `For $${dollarAmount} 2023 USD in ${year}, you could buy ${convertedAmount.toFixed(2)} ${unit} of ${storageType} storage.`;
 
       setSpecificYearNotFound(false);
       setStorageTypeNotAvailable(false);
@@ -190,7 +190,7 @@ const BudgetCalculator = () => {
         {yearNotFound && <div style={{ color: 'black' }}>Year not found in data.</div>}
         {generalResult && (
           <div>
-            <h2>For ${generalResult.budget} in {generalResult.year} you could purchase:</h2>
+            <h2>For ${generalResult.budget} 2023 USD in {generalResult.year} you could purchase:</h2>
             <div>
               {generalResult.purchases.map((result, index) => (
                 <div key={index}>

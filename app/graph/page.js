@@ -103,7 +103,7 @@ const GraphPage = () => {
       textAlign: 'center'
     }}>
       <h1 style={{ marginBottom: '1rem' }}>Storage Costs Over Time</h1>
-      <h3 style={{ marginBottom: '1rem' }}>2024 US Dollars per Unit</h3>
+      <h3 style={{ marginBottom: '1rem' }}>2023 US Dollars per Unit</h3>
 
       {/* Decades Section */}
       <div style={{ marginBottom: '1rem' }}>
