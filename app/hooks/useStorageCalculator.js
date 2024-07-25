@@ -36,7 +36,7 @@ const useStorageCalculator = () => {
     const yearData = data.find((row) => parseInt(row.Year, 10) === parsedYear);
     if (yearData) {
       const costPerTerabyteStr = yearData[storageType];
-      //fix issues with data types
+      //fixed issues with data types
       const costPerTerabyte = parseFloat(costPerTerabyteStr);
       if (isNaN(costPerTerabyte)) {
         //nullify results
