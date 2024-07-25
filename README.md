@@ -4,7 +4,7 @@
 
 This project is a nextjs website that allows use to put the historical and current prices of storage in context.
 
-##Features
+## Features
 
 Home - Enter an amount of storage, the unit you are using, year and storage type to find out how much this storage would cost in the past. Gives an overview of common storage technologies in that decade.
 
